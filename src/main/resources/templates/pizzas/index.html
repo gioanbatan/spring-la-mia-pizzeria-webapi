@@ -5,9 +5,31 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pizza</title>
+    <title>Pizze</title>
 </head>
 <body>
-<h1>Pizza</h1>
+<h1>Pizze</h1>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Nome pizza</th>
+        <th>Descrizione</th>
+        <th>Prezzo</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="pizza : ${list}" th:object="${pizza}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{price} + '€'"></td>
+    </tr>
+    </tbody>
+</table>
+<!--
+<div th:text="${list}"></div>
+-->
 </body>
 </html>
