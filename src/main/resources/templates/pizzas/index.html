@@ -9,7 +9,10 @@
 </head>
 <body>
 <h1>Pizze</h1>
-<table>
+
+<div th:if="${list.size()} == 0">Nessuna pizza nella lista!</div>
+
+<table th:if="${list.size()} > 0">
     <thead>
     <tr>
         <th>id</th>
@@ -28,8 +31,5 @@
     </tr>
     </tbody>
 </table>
-<!--
-<div th:text="${list}"></div>
--->
 </body>
 </html>
