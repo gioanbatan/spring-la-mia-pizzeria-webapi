@@ -1,0 +1,31 @@
+table {
+    box-shadow: 5px 5px 2px #00000044;
+    border-radius: 5px;
+}
+
+body {
+    font-family: 'Delicious Handrawn', cursive;
+    font-size: 1.3rem;
+}
+
+.ms_pizza-bg {
+    background-image: url("../images/pexels-rene-strgar-10836977.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.ms_table-borders {
+    border-radius: 5px;
+}
+
+.ms_navbar-bg {
+background-image: linear-gradient(#ffffffff 35%, #ffffff80 80%, #ffffff00 100%);
+}
+
+.ms_font {
+    color: #5533ff;
+    font-family: 'Delicious Handrawn', cursive;
+    background-color: #ffffff99;
+    border-radius: 10px;
+}
