@@ -6,11 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <th:block th:replace="~{fragments :: head}"></th:block>
+    <th:block th:replace="~{/fragments/resources :: head}"></th:block>
     <title>Pizze</title>
 </head>
 <body class="ms_pizza-bg">
-<nav th:replace="~{fragments :: nav}"></nav>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
 
 <div class="container">
     <h2 class="text-center ms_font">La pizzeria che rende buona la creatività!</h2>
@@ -25,6 +25,7 @@
             <th>Nome pizza</th>
             <th>Descrizione</th>
             <th>Prezzo</th>
+            <th>Azioni</th>
         </tr>
         </thead>
 
@@ -34,6 +35,9 @@
             <td th:text="*{name}"></td>
             <td th:text="*{description}"></td>
             <td th:text="*{price} + '€'"></td>
+            <td>
+                <i class="fa-solid fa-pizza-slice"></i>
+            </td>
         </tr>
         </tbody>
     </table>
