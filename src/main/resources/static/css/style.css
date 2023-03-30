@@ -22,9 +22,19 @@ body {
 background-image: linear-gradient(#ffffffff 35%, #ffffff80 80%, #ffffff00 100%);
 }
 
+.ms_box {
+    background-color: #e0fff0aa;
+    border-radius: 15px 0 15px 0;
+    box-shadow: 5px 5px 2px #00000044;
+}
+
 .ms_font {
     color: #5533ff;
     font-family: 'Delicious Handrawn', cursive;
     background-color: #ffffff99;
     border-radius: 10px;
+}
+
+.ms_back-pizza {
+    transform: rotate(20deg);
 }

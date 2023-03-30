@@ -12,35 +12,41 @@
 <body class="ms_pizza-bg">
 <nav th:replace="~{fragments/nav :: nav}"></nav>
 
-<div class="container">
-    <h2 class="text-center ms_font">La pizzeria che rende buona la creatività!</h2>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-8 ms_box">
+            <h2 class="text-center ms_font">La pizzeria che rende buona la creatività!</h2>
 
-    <div th:if="${list.size()} == 0">Nessuna pizza nella lista!</div>
+            <div th:if="${list.size()} == 0">Nessuna pizza nella lista!</div>
 
 
-    <table th:if="${list.size()} > 0" class="table table-success table-striped ms_tables-borders">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>Nome pizza</th>
-            <th>Descrizione</th>
-            <th>Prezzo</th>
-            <th>Azioni</th>
-        </tr>
-        </thead>
+            <table th:if="${list.size()} > 0" class="table table-success table-striped ms_tables-borders">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nome pizza</th>
+                    <th>Descrizione</th>
+                    <th>Prezzo</th>
+                    <th>Azioni</th>
+                </tr>
+                </thead>
 
-        <tbody>
-        <tr th:each="pizza : ${list}" th:object="${pizza}">
-            <td th:text="*{id}"></td>
-            <td th:text="*{name}"></td>
-            <td th:text="*{description}"></td>
-            <td th:text="*{price} + '€'"></td>
-            <td>
-                <i class="fa-solid fa-pizza-slice"></i>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <tbody>
+                <tr th:each="pizza : ${list}" th:object="${pizza}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{description}"></td>
+                    <td th:text="*{price} + '€'"></td>
+                    <td>
+                        <a th:href="@{|/pizzas/*{id}|}" th:title="'Dettagli pizza ' + *{name}">
+                            <i class="fa-solid fa-pizza-slice"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>
