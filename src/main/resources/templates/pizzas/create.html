@@ -23,18 +23,20 @@
             <form class="row fs-2" id="pizza-form" th:object="${pizza}" th:action="@{/pizzas/create}" method="POST">
                 <div class="form-group col-8">
                     <label class="form-label" for="name">Nome*</label>
-                    <input class="form-control fs-2" type="text" id="name" th:field="*{name}">
+                    <input class="form-control fs-2" type="text" id="name" th:field="*{name}"
+                           th:errorClass="is-invalid">
                 </div>
 
                 <div class="form-group col-4">
                     <label class="form-label" for="price">Prezzo*</label>
                     <input class="form-control fs-2" type="number" id="price"
-                           th:field="*{price}">
+                           th:field="*{price}" th:errorClass="is-invalid">
                 </div>
 
                 <div class="form-group col-12">
-                    <label class="form-label" for="description">Descrizione</label>
+                    <label class="form-label" for="description">Descrizione*</label>
                     <textarea class="form-control ms_textarea-no-resize fs-2" id="description" th:field="*{description}"
+                              th:errorClass="is-invalid"
                               row="3"></textarea>
                 </div>
 

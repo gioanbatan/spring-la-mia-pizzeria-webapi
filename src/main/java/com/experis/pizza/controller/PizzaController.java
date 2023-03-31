@@ -2,6 +2,7 @@ package com.experis.pizza.controller;
 
 import com.experis.pizza.model.Pizza;
 import com.experis.pizza.repository.PizzaRepository;
+import jakarta.validation.Valid;
 import org.hibernate.boot.jaxb.spi.Binding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,10 @@ public class PizzaController {
     }
 
     @PostMapping("/create")
-    public String store(@ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/pizzas/create";
+        }
         Pizza pizzaToPersist = new Pizza();
         pizzaToPersist.setName(formPizza.getName());
         pizzaToPersist.setPrice(formPizza.getPrice());
