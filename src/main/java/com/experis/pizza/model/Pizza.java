@@ -13,6 +13,7 @@ public class Pizza {
     private Integer id;
 
     private String name;
+    
     @Lob
     private String description;
     private BigDecimal price;

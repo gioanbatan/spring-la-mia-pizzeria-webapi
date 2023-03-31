@@ -2,15 +2,16 @@ package com.experis.pizza.controller;
 
 import com.experis.pizza.model.Pizza;
 import com.experis.pizza.repository.PizzaRepository;
+import org.hibernate.boot.jaxb.spi.Binding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +37,22 @@ public class PizzaController {
         } else {
             throw new ResponseStatusException((HttpStatus.NOT_FOUND));
         }
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("pizza", new Pizza());
+        return "/pizzas/create";
+    }
+
+    @PostMapping("/create")
+    public String store(@ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+        Pizza pizzaToPersist = new Pizza();
+        pizzaToPersist.setName(formPizza.getName());
+        pizzaToPersist.setPrice(formPizza.getPrice());
+        pizzaToPersist.setDescription(formPizza.getDescription());
+
+        pizzaRepository.save(pizzaToPersist);
+        return "redirect:/pizzas";
     }
 }

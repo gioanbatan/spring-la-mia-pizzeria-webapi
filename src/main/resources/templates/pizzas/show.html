@@ -11,17 +11,15 @@
 </head>
 <body class="ms_pizza-bg">
 <nav th:replace="~{fragments/nav :: nav}"></nav>
-<div class="container-fluid" th:object="${pizza}">
+<div class="container-fluid mt-2" th:object="${pizza}">
     <div class="row justify-content-center">
         <div class="col-8 ms_box">
-            <i class="fa-solid fa-pizza-slice"></i>
-            <i class="fa-solid fa-left-long"></i>
             <h1>[[*{name}]]</h1>
         </div>
     </div>
 
-    <div class="row justify-content-center mt-1">
-        <div class="col-8 ms_box">
+    <div class="row justify-content-center m-3 ">
+        <div class="col-8 ms_box p-3">
             <h4>Descrizione:</h4>
             <p th:text="*{description}">
             </p>
@@ -31,7 +29,10 @@
                 €
             </h4>
 
-            <a th:href="@{/pizzas}">Indietro</a>
+            <a th:href="@{/pizzas}">
+                <i class="fa-solid fa-pizza-slice ms_back-pizza"></i>
+                Torna alla lista
+            </a>
         </div>
     </div>
 </div>

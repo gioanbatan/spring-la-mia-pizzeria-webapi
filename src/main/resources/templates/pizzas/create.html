@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <th:block th:replace="~{/fragments/resources :: head}"></th:block>
+    <title>Creazione di una nuova pizza</title>
+</head>
+<body class="ms_pizza-bg">
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-8 ms_box text-center">
+            <h1>Creazione di una nuova pizza</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-10 ms_box p-3">
+            <form class="row fs-2" id="pizza-form" th:object="${pizza}" th:action="@{/pizzas/create}" method="POST">
+                <div class="form-group col-8">
+                    <label class="form-label" for="name">Nome*</label>
+                    <input class="form-control fs-2" type="text" id="name" th:field="*{name}">
+                </div>
+
+                <div class="form-group col-4">
+                    <label class="form-label" for="price">Prezzo*</label>
+                    <input class="form-control fs-2" type="number" id="price"
+                           th:field="*{price}">
+                </div>
+
+                <div class="form-group col-12">
+                    <label class="form-label" for="description">Descrizione</label>
+                    <textarea class="form-control ms_textarea-no-resize fs-2" id="description" th:field="*{description}"
+                              row="3"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-end mt-2">
+                    <a class="btn btn-secondary px-4 me-2" th:href="@{/pizzas}">Annulla</a>
+                    <button class="btn btn-primary px-4" type="submit">Crea</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

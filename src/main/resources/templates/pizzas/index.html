@@ -15,12 +15,18 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-8 ms_box">
-            <h2 class="text-center ms_font">La pizzeria che rende buona la creatività!</h2>
+            <h2 class="text-center ms_font pt-3">La pizzeria che rende buona la creatività!</h2>
+
+            <div class="d-flex justify-content-end">
+                <a th:href="@{/pizzas/create}" class="btn btn-secondary my-3">
+                    Crea una pizza <i class="fa-solid fa-circle-plus"></i>
+                </a>
+            </div>
 
             <div th:if="${list.size()} == 0">Nessuna pizza nella lista!</div>
 
 
-            <table th:if="${list.size()} > 0" class="table table-success table-striped ms_tables-borders">
+            <table th:if="${list.size()} > 0" class="table table-primary table-striped ms_tables-borders">
                 <thead>
                 <tr>
                     <th>id</th>
@@ -40,6 +46,7 @@
                     <td>
                         <a th:href="@{|/pizzas/*{id}|}" th:title="'Dettagli pizza ' + *{name}">
                             <i class="fa-solid fa-pizza-slice"></i>
+                            <i class="fa-solid fa-plus"></i>
                         </a>
                     </td>
                 </tr>
