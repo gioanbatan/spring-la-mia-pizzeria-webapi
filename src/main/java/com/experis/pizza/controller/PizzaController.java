@@ -21,12 +21,17 @@ import java.util.Optional;
 public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
-
+    
     @GetMapping
-    public String index(Model model) {
-        List<Pizza> pizzas = pizzaRepository.findAll();
+    public String search(Model model, @RequestParam(name = "search-query") String keyword) {
+        List<Pizza> pizzas;
+        if (keyword.equals("")) {
+            pizzas = pizzaRepository.findAll();
+        } else {
+            pizzas = pizzaRepository.findByNameContainingIgnoreCase(keyword);
+        }
         model.addAttribute("list", pizzas);
-        return "/pizzas/index";
+        return ("/pizzas/index");
     }
 
     @GetMapping("/{id}")
