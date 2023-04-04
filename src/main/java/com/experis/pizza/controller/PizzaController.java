@@ -66,14 +66,24 @@ public class PizzaController {
         pizzaRepository.save(pizzaToPersist);
         return "redirect:/pizzas";
     }
-/*
+
     @GetMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "/books/edit";
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("pizza", result.get());
+            return "/pizzas/edit";
+        } else {
+            throw new ResponseStatusException((HttpStatus.NOT_FOUND));
         }
-        return "redirect:pizzas";
     }
 
- */
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/pizzas/edit";
+        }
+        pizzaRepository.save(formPizza);
+        return "redirect:/pizzas";
+    }
 }

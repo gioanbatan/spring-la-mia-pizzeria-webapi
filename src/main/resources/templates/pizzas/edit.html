@@ -7,20 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <th:block th:replace="~{/fragments/resources :: head}"></th:block>
-    <title>Creazione di una nuova pizza</title>
+    <title>Modifica di una nuova pizza</title>
 </head>
 <body class="ms_pizza-bg">
 <nav th:replace="~{fragments/nav :: nav('pizzas', ${keyworld})}"></nav>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-8 ms_box text-center">
-            <h1>Creazione di una nuova pizza</h1>
+            <h1>Modifica pizza</h1>
         </div>
     </div>
 
     <div class="row justify-content-center mt-3">
         <div class="col-10 ms_box p-3">
-            <form class="row fs-2" id="pizza-form" th:object="${pizza}" th:action="@{/pizzas/create}" method="post">
+            <form class="row fs-2" id="pizza-form" th:object="${pizza}"
+                  th:action="@{${pizza.id}}" method="post">
                 <div class="form-group col-8">
                     <label class="form-label" for="name">Nome*</label>
                     <input class="form-control fs-2" type="text" id="name" th:field="*{name}"
@@ -31,6 +32,13 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- BOOK
+                <form id="book-form" method="post" th:object="${book}"
+                    th:with="formAction=${edit ? '/books/edit/' + book.id : '/books/create'}"
+                     th:action="@{${formAction}}"
+                    class="row gy-3">
+                -->
 
                 <div class="form-group col-4">
                     <label class="form-label" for="price">Prezzo*</label>
@@ -57,7 +65,7 @@
 
                 <div class="d-flex justify-content-end mt-2">
                     <a class="btn btn-secondary px-4 me-2" th:href="@{/pizzas}">Annulla</a>
-                    <button class="btn btn-primary px-4" type="submit">Crea</button>
+                    <button class="btn btn-primary px-4" type="submit">Modifica</button>
                 </div>
             </form>
         </div>

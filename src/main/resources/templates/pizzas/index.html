@@ -47,6 +47,10 @@
                         <a th:href="@{|/pizzas/*{id}|}" th:title="'Dettagli pizza ' + *{name}">
                             <i class="fa-solid fa-pizza-slice"></i>
                         </a>
+
+                        <a th:href="@{|/pizzas/edit/*{id}|}" th:title="'Modifica pizza ' + *{name}">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
