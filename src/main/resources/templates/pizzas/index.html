@@ -23,7 +23,7 @@
                 </a>
             </div>
 
-            <div th:if="${list.size()} == 0">Nessuna pizza nella lista!</div>
+            <div class="mb-4 text-center fs-2" th:if="${list.size()} == 0">Nessuna pizza nella lista!</div>
 
 
             <table th:if="${list.size()} > 0" class="table table-primary table-striped ms_tables-borders">
@@ -44,12 +44,16 @@
                     <td th:text="*{description}"></td>
                     <td th:text="*{price} + '€'"></td>
                     <td>
-                        <a th:href="@{|/pizzas/*{id}|}" th:title="'Dettagli pizza ' + *{name}">
+                        <a class="me-1" th:href="@{|/pizzas/*{id}|}" th:title="'Dettagli pizza ' + *{name}">
                             <i class="fa-solid fa-pizza-slice"></i>
                         </a>
 
-                        <a th:href="@{|/pizzas/edit/*{id}|}" th:title="'Modifica pizza ' + *{name}">
+                        <a class="me-1" th:href="@{|/pizzas/edit/*{id}|}" th:title="'Modifica pizza ' + *{name}">
                             <i class="fa-solid fa-pen-nib"></i>
+                        </a>
+
+                        <a th:href="@{|/pizzas/delete/*{id}|}" th:title="'Elimina pizza ' + *{name}">
+                            <i class="fa-solid fa-trash"></i>
                         </a>
                     </td>
                 </tr>

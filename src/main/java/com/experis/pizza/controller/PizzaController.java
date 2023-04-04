@@ -86,4 +86,10 @@ public class PizzaController {
         pizzaRepository.save(formPizza);
         return "redirect:/pizzas";
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        pizzaRepository.deleteById(id);
+        return "redirect:/pizzas";
+    }
 }
