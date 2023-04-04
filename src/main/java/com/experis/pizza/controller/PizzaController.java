@@ -1,5 +1,6 @@
 package com.experis.pizza.controller;
 
+import com.experis.pizza.model.AlertMessage;
 import com.experis.pizza.model.Pizza;
 import com.experis.pizza.repository.PizzaRepository;
 import jakarta.validation.Valid;
@@ -11,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.sound.midi.SysexMessage;
 import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.List;
@@ -88,8 +91,17 @@ public class PizzaController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id) {
-        pizzaRepository.deleteById(id);
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            Optional<Pizza> result = pizzaRepository.findById(id);
+            pizzaRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessage.AlertMessagesType.SUCCESS, "Pizza '" + result.get().getName() + "' cancellata."));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessage.AlertMessagesType.ERROR, "Errore generico (per ora)"));
+            // NOTE: ADD CUSTOM EXCEPTIONS
+        }
         return "redirect:/pizzas";
     }
 }

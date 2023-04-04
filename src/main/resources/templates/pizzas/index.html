@@ -25,6 +25,13 @@
 
             <div class="mb-4 text-center fs-2" th:if="${list.size()} == 0">Nessuna pizza nella lista!</div>
 
+            <th:block th:if="${message}">
+                <div class="alert alert-dismissible fade show my-4"
+                     th:classAppend="${#strings.equals(message.type, 'SUCCESS')} ? alert-info : alert-danger">
+                    <div th:text="${message.message}"></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </th:block>
 
             <table th:if="${list.size()} > 0" class="table table-primary table-striped ms_tables-borders">
                 <thead>
