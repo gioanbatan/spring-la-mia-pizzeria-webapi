@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +22,15 @@ import java.util.Optional;
 public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
-    
+
     @GetMapping
-    public String search(Model model, @RequestParam(name = "search-query") String keyword) {
+    public String search(Model model, @RequestParam(name = "search-query") Optional<String> keyword) {
         List<Pizza> pizzas;
-        if (keyword.equals("")) {
+        if (keyword.isEmpty()) {
             pizzas = pizzaRepository.findAll();
         } else {
-            pizzas = pizzaRepository.findByNameContainingIgnoreCase(keyword);
+            pizzas = pizzaRepository.findByNameContainingIgnoreCase(keyword.get());
+            model.addAttribute("keyword", keyword);
         }
         model.addAttribute("list", pizzas);
         return ("/pizzas/index");
@@ -64,4 +66,14 @@ public class PizzaController {
         pizzaRepository.save(pizzaToPersist);
         return "redirect:/pizzas";
     }
+/*
+    @GetMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/books/edit";
+        }
+        return "redirect:pizzas";
+    }
+
+ */
 }
