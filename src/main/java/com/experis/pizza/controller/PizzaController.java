@@ -3,6 +3,7 @@ package com.experis.pizza.controller;
 import com.experis.pizza.model.AlertMessage;
 import com.experis.pizza.model.Pizza;
 import com.experis.pizza.repository.PizzaRepository;
+import com.experis.pizza.service.PizzaService;
 import jakarta.validation.Valid;
 import org.hibernate.boot.jaxb.spi.Binding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ import java.util.Optional;
 public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
+
+    @Autowired
+    private PizzaService pizzaService;
 
     @GetMapping
     public String search(Model model, @RequestParam(name = "search-query") Optional<String> keyword) {
@@ -57,16 +61,11 @@ public class PizzaController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/pizzas/create";
         }
-        Pizza pizzaToPersist = new Pizza();
-        pizzaToPersist.setName(formPizza.getName());
-        pizzaToPersist.setPrice(formPizza.getPrice());
-        pizzaToPersist.setDescription(formPizza.getDescription());
-
-        pizzaRepository.save(pizzaToPersist);
+        pizzaService.createPizza(formPizza);
         return "redirect:/pizzas";
     }
 
