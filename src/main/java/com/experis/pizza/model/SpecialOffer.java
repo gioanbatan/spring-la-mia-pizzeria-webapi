@@ -17,6 +17,7 @@ public class SpecialOffer {
     private String title;
 
     @ManyToOne
+    @JoinColumn(name = "pizza_id", nullable = false)
     @NotNull
     private Pizza pizza;
 
