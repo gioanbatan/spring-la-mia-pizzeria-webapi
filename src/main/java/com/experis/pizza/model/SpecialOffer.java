@@ -12,8 +12,10 @@ public class SpecialOffer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     private LocalDate startDate;
     private LocalDate endDate;
+    @NotNull
     private String title;
 
     @ManyToOne

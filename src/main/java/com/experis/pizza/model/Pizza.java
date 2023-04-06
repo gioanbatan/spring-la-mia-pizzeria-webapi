@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "pizzas")
@@ -16,6 +17,7 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     @NotBlank
     private String name;
 
@@ -29,6 +31,24 @@ public class Pizza {
 
     @OneToMany(mappedBy = "pizza")
     private List<SpecialOffer> specialOffers;
+
+    @ManyToMany()
+    @JoinTable(
+            name = "pizza_ingredient",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> categories;
+
+    public Pizza() {
+        super();
+    }
+
+    public Pizza(Integer id, String name, String description, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;

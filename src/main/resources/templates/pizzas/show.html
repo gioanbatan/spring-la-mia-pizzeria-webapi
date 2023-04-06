@@ -29,7 +29,14 @@
                 €
             </h4>
 
-            <table th:if="*{specialOffers.size()} > 0" class="table table-primary table-striped ms_tables-borders">
+            <div class="d-flex justify-content-end">
+                <a th:href="@{/pizzas/create}" class="btn btn-secondary my-3">
+                    Crea una offerta(DA FARE)<i class="fa-solid fa-circle-plus"></i>
+                </a>
+            </div>
+
+            <table th:if="*{specialOffers.size() > 0}"
+                   class="table table-primary table-striped ms_tables-borders">
                 <thead>
                 <tr>
                     <th>Titolo offerta</th>
