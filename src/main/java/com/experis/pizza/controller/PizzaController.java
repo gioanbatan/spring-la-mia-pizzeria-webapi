@@ -72,23 +72,27 @@ public class PizzaController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model) {
-        Optional<Pizza> result = pizzaRepository.findById(id);
-        if (result.isPresent()) {
-            model.addAttribute("pizza", result.get());
+    public String edit(@PathVariable Integer id, Model model) throws ResponseStatusException {
+        try {
+            model.addAttribute("pizza", pizzaService.getById(id));
+            model.addAttribute("ingredients", ingredientService.getAll());
             return "/pizzas/edit";
-        } else {
+        } catch (Exception e) {
             throw new ResponseStatusException((HttpStatus.NOT_FOUND));
         }
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientService.getAll());
             return "/pizzas/edit";
         }
+
+        Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
+
         pizzaRepository.save(formPizza);
-        return "redirect:/pizzas";
+        return "redirect:/pizzas/" + Integer.toString(updatedPizza.getId());
     }
 
     @GetMapping("/delete/{id}")
