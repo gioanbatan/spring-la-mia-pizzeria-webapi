@@ -24,6 +24,11 @@
             <p th:text="*{description}">
             </p>
 
+            <h4>Ingredienti:</h4>
+            <p>
+                <span th:each="ingredient : *{ingredients}" class="me-1"></span>
+            </p>
+
             <h4 class="d-flex justify-content-end">Prezzo:
                 <span th:text="*{price}"></span>
                 €
