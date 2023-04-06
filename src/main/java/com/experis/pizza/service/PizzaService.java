@@ -38,7 +38,9 @@ public class PizzaService {
 
     private Pizza setAllData(Pizza dataPizza) {
         Pizza pizzaReturn = new Pizza();
-
+        if (dataPizza.getId() != null) {
+            pizzaReturn.setId(dataPizza.getId());
+        }
         pizzaReturn.setName(dataPizza.getName());
         pizzaReturn.setPrice(dataPizza.getPrice());
         pizzaReturn.setDescription(dataPizza.getDescription());
