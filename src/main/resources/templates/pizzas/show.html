@@ -25,9 +25,9 @@
             </p>
 
             <h4>Ingredienti:</h4>
-            <p>
-                <span th:each="ingredient : *{ingredients}" class="me-1"></span>
-            </p>
+            <ul>
+                <li th:each="ingredient : *{ingredients}" th:text="${ingredient.name}" class="me-1"></li>
+            </ul>
 
             <h4 class="d-flex justify-content-end">Prezzo:
                 <span th:text="*{price}"></span>

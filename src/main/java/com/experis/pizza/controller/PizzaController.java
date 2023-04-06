@@ -3,6 +3,7 @@ package com.experis.pizza.controller;
 import com.experis.pizza.model.AlertMessage;
 import com.experis.pizza.model.Pizza;
 import com.experis.pizza.repository.PizzaRepository;
+import com.experis.pizza.service.IngredientService;
 import com.experis.pizza.service.PizzaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PizzaController {
     @Autowired
     private PizzaService pizzaService;
 
+    @Autowired
+    private IngredientService ingredientService;
+
     @GetMapping
     public String search(Model model, @RequestParam(name = "search-query") Optional<String> keyword) {
         List<Pizza> pizzas;
@@ -40,25 +44,27 @@ public class PizzaController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") Integer id, Model model) {
-        Optional<Pizza> result = pizzaRepository.findById(id);
-        if (result.isPresent()) {
-            model.addAttribute("pizza", result.get());
+    public String show(@PathVariable("id") Integer id, Model model) throws ResponseStatusException {
+        try {
+            Pizza pizza = pizzaService.getById(id);
+            model.addAttribute("pizza", pizza);
             return "/pizzas/show";
-        } else {
-            throw new ResponseStatusException((HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientService.getAll());
         return "/pizzas/create";
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientService.getAll());
             return "/pizzas/create";
         }
         pizzaService.createPizza(formPizza);
