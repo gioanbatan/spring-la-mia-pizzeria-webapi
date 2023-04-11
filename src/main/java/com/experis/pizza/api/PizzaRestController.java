@@ -3,6 +3,7 @@ package com.experis.pizza.api;
 import com.experis.pizza.exceptions.PizzaNotFoundException;
 import com.experis.pizza.model.Pizza;
 import com.experis.pizza.service.PizzaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,10 @@ public class PizzaRestController {
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping
+    public Pizza create(@Valid @RequestBody Pizza pizza) {
+        return pizzaService.createPizza(pizza);
     }
 }
