@@ -6,6 +6,7 @@ import com.experis.pizza.repository.PizzaRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class PizzaService {
         return pizzaRepository.save(pizzaToPersist);
     }
 
-    public Pizza updatePizza(Pizza formPizza, Integer id) {
+    public Pizza updatePizza(Pizza formPizza, Integer id) throws PizzaNotFoundException {
         Pizza pizzaToUpdate = getById(id);
 
         pizzaToUpdate = setAllData(formPizza);
@@ -39,12 +40,12 @@ public class PizzaService {
         return pizzaRepository.save(pizzaToUpdate);
     }
 
-    public Pizza getById(Integer id) throws RuntimeException {
+    public Pizza getById(Integer id) throws PizzaNotFoundException {
         Optional<Pizza> result = pizzaRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         } else {
-            throw new RuntimeException(); // ADD CUSTOM EXCEPTIONS
+            throw new PizzaNotFoundException("Pizza non esistente.");
         }
     }
 
