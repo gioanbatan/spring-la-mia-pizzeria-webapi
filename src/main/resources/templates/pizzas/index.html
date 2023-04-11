@@ -36,7 +36,6 @@
             <table th:if="${list.size()} > 0" class="table table-primary table-striped ms_tables-borders">
                 <thead>
                 <tr>
-                    <th>id</th>
                     <th>Nome pizza</th>
                     <th>Descrizione</th>
                     <th>Prezzo</th>
@@ -46,7 +45,6 @@
 
                 <tbody>
                 <tr th:each="pizza : ${list}" th:object="${pizza}">
-                    <td th:text="*{id}"></td>
                     <td th:text="*{name}"></td>
                     <td th:text="*{description}"></td>
                     <td th:text="*{price} + '€'"></td>

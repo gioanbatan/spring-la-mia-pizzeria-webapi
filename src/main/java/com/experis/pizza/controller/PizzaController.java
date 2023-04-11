@@ -34,9 +34,9 @@ public class PizzaController {
     public String search(Model model, @RequestParam(name = "search-query") Optional<String> keyword) {
         List<Pizza> pizzas;
         if (keyword.isEmpty()) {
-            pizzas = pizzaRepository.findAll();
+            pizzas = pizzaService.getAllPizzas();
         } else {
-            pizzas = pizzaRepository.findByNameContainingIgnoreCase(keyword.get());
+            pizzas = pizzaService.getFilteredPizzas(keyword.get());
             model.addAttribute("keyword", keyword);
         }
         model.addAttribute("list", pizzas);
