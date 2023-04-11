@@ -1,7 +1,9 @@
 package com.experis.pizza.service;
 
+import com.experis.pizza.exceptions.PizzaNotFoundException;
 import com.experis.pizza.model.Pizza;
 import com.experis.pizza.repository.PizzaRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,16 @@ public class PizzaService {
             return result.get();
         } else {
             throw new RuntimeException(); // ADD CUSTOM EXCEPTIONS
+        }
+    }
+
+    public boolean deleteById(Integer id) throws PizzaNotFoundException {
+        pizzaRepository.findById(id).orElseThrow(() -> new PizzaNotFoundException(Integer.toString(id)));
+        try {
+            pizzaRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
