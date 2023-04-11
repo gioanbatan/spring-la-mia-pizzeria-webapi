@@ -6,6 +6,7 @@ import com.experis.pizza.service.PizzaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -50,6 +51,18 @@ public class PizzaRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata.");
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        try {
+            boolean success = pizzaService.deleteById(id);
+            if (!success) {
+                // ADD EXCEPTION FOR RELATIONSHIPS
+            }
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 }
