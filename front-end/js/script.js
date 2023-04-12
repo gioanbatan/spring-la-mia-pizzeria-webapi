@@ -16,29 +16,36 @@ const createPizzasList = (data) => {
     return listHtml;
 }
 
-// Pizzas Cards
+// Pizzas Card
 const pizzaCard = (pizza) => {
     return `
-    <div class="row fs-4 mb-3 ms_pizza-card">
-    <div class="col-8">
-    <div class="row">
-    <div class="col-8">
-    ${pizza.name}
-    </div>
-    <div class="col-4 text-end">
-    ${pizza.price}&nbsp€
-    </div>
-    <div class="col-12">
-    <h3>Descrizioone:</h3>
-    <p>${pizza.description}</p>
-    </div>
-    </div>
-    </div>
-    <div class="col-4">
-    IMAGE
-    </div>
-    </div>`
+    <div class="row mb-3 ms_pizza-card">
+        <div class="col-8">
+            <div class="row">
+                <div class="col-8 fs-2">
+                ${pizza.name}
+                </div>
 
+                <div class="col-4 fs-2 text-end">
+                ${pizza.price}&nbsp€
+                </div>
+
+                <div class="col-12">
+                    <h4>Descrizione:</h4>
+
+                    <p class="fs-4">${pizza.description}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 d-flex justify-content-center align-items-center">
+        IMAGE
+        </div>
+
+        <div class="col-12 text-end mb-3">
+            <button data-id="${pizza.id}" class="btn btn-outline-warning fs-5">Elimina</button>
+        </div>
+    </div>`
 }
 
 // Load data function
@@ -48,30 +55,46 @@ async function loadData() {
         const data = await response.json();
         console.log(createPizzasList(data));
         pizzasList.innerHTML = createPizzasList(data);
+
+        const deleteBtns = document.querySelectorAll('button[data-id]');
+        console.log(deleteBtns);
+        for (let btn of deleteBtns) {
+            btn.addEventListener('click', () => {
+                deletePizza(btn.dataset.id);
+            })
+        }
     } else {
         console.log("Error");
     }
 }
 
-// APIs
+/* APIs */
 // Get all pizzas
 async function getPizzasList() {
     const response = await fetch(API_URL);
     return response;
 }
 
+// Post Pizza to API
 const postPizza = async (jsonData) => {
     const fetchOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: jsonData,
+        body: jsonData
     };
     const response = await fetch(API_URL, fetchOptions);
     return response;
 };
 
+// Delete pizza
+const deletePizzaById = async (id) => {
+    const response = await fetch(API_URL + '/' + id, { method: 'DELETE' });
+    return response;
+};
+
+// Handle submit
 const savePizza = async (event) => {
     // Stop normal submit method
     event.preventDefault();
@@ -96,6 +119,17 @@ const savePizza = async (event) => {
         console.log(responseBody);
     }
 };
+
+// Handle delete
+const deletePizza = async (id) => {
+    console.log("Test delete", id);
+    const response = await deletePizzaById(id);
+    if (response.ok) {
+        loadData();
+    } else {
+        console.log("Error", response.status);
+    }
+}
 
 /* Script immediately executed */
 pizzaForm.addEventListener('submit', savePizza);
