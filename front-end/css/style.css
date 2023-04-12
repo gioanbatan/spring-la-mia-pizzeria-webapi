@@ -1,0 +1,20 @@
+/* RESET */
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Delicious Handrawn', cursive;
+    background-color: brown;
+}
+
+header {
+    background-image: linear-gradient(#ffffffcc 85%, #ffffff00 100%);
+}
+
+main {
+    margin-top: 50px;
+    color: #ffddcc;
+}
